@@ -1,0 +1,48 @@
+<div id="loginbox" style="display: none;">
+  <div class="loginbox_inner">
+    <% form_tag '/sessions', :onsubmit => "return false;", :id => "login_form" do -%>
+      <input class="login_name" type="text" name="login" />
+      <input class="login_password" type="password" name="password" />
+      <input type="button" class="signup_btn signup_big" />
+      <input type="button" class="forgotpwd_btn forgotpwd_big" />
+      <input type="button" class="signin_btn signin_big" />
+    <% end -%>
+  </div>
+</div>
+<div id="signupbox" style="display: none;">
+  <div class="signupbox_inner">
+    <% form_tag '/members', :onsubmit => "return false;", :id => "signup_form" do -%>
+      <p><input class="signup_email signup_input_text" type="text" name="member[email]" /></p>
+      <p><input class="signup_name signup_input_text" type="text" name="member[login]" /></p>
+      <% if false -%>
+        <p class="signup_sex" style="display: none;"><%= Member::Sex.map { |ms| %Q{<input type="radio" name="member[sex]" value="#{ms.first}" />#{ms.last}} }.join(' ') -%></p>
+      <% end -%>
+      <p class="signup_sex">
+        <span id="sex_check_icon1" style="position: absolute;"><img src="/images/sex_check.png" alt="sex check" /></span>
+        <span id="sex_check_icon2" style="display: none;position: absolute;"><img src="/images/sex_check.png" alt="sex check" /></span>
+        <span id="sex_checkbox1" class="sex_checkbox"><img src="/images/sex_box.png" alt="sex" /></span>
+        <span id="sex_checkbox2" class="sex_checkbox"><img src="/images/sex_box.png" alt="sex" /></span>
+      </p>
+      <p>
+        <select name="member[nature]" class="signup_nature">
+          <%= Member::Nature.map { |ms| %Q{<option value="#{ms.first}">#{ms.last}</option>} }.join(' ') -%>
+        </select>
+      </p>
+      <p><input class="signup_password signup_input_text" type="password" name="member[password]" /></p>
+      <p><input class="signup_password_confirmation signup_input_text" type="password" name="member[password_confirmation]" /></p>
+      <p>
+        <input type="hidden" id="signup_h_sex" name="member[sex]" value="1" />
+        <!--<input type="hidden" id="signup_h_nature" name="member[nature]" value="1" />-->
+        <input type="button" id="signup_submit" value="" />
+      </p>
+    <% end -%>
+  </div>
+</div>
+<div id="forgotpwdbox" style="display: none;">
+  <div id="forgotpwdbox_inner">
+    <% form_tag '/forgot_pwd', :id => 'forgot_pwd_form', :onsubmit => "return false;" do -%>
+      <p><input type="text" name="email" id="pwd_email_input" /></p>
+      <p><input type="button" id="get_pwd_btn" /></p>
+    <% end -%>
+  </div>
+</div>

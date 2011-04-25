@@ -1,0 +1,45 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>毒药</title>
+    <meta name="description" content="毒药(Poison),一款极其受欢迎的网页游戏(Webgame)"/>
+    <meta name="keywords" content="毒药,poison,网页游戏,webgame,交友,成就,技能,角色" />
+    <meta content="ALL" name="ROBOTS"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+    <%= stylesheet_link_tag "p", "tip-green", "tip-skyblue" -%>
+  </head>
+  <body>
+    <div id="wrapper">
+      <div id="content">
+        <img src="/images/logo.png" title="毒药" alt="毒药" id="logo" />
+        <div id="menu">
+          <a id="login_btn" href="javascript: void(0);">登录</a>
+          <a class="signup_btn" href="javascript: void(0);">注册</a>
+          <a class="goto_lobby" href="javascript: void(0);">Lobby</a>
+          <a href="/logout">Logout</a>
+        </div>
+        <div id="play_bg">
+        </div>
+        <div id="playground">
+          <%= render :partial => "layouts/signin_signup" -%>
+          <%= render :partial => "layouts/lobby" -%>
+          <%= render :partial => "layouts/game" -%>
+        </div>
+      </div>
+      <%= render :partial => "layouts/bottom" -%>
+      <%= yield :layout -%>
+    </div>
+    <%= javascript_include_tag "jquery-1.4.4.min", "jquery.easing.1.3", "jquery.timer", "jquery.poshytip.min",
+      "jquery.json-2.2.min", "swfobject", "jsxmlsocket",
+      "g", "p", "login", "game", "socket"  -%>
+    <script type="text/javascript">
+      var cookies_login = false, init_player_data;
+      function initSetLoginData(s, d) {cookies_login = s; init_player_data = d;};
+      function is_init_s() {return cookies_login;};
+<% if @json_login_data -%>
+    initSetLoginData(true, eval(<%= @json_login_data.to_json %>));
+<% end -%>
+    </script>
+  </body>
+</html>
