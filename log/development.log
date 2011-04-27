@@ -30975,3 +30975,51 @@ Rendering home/index
 Rendered layouts/_game (0.2ms)
 Rendered layouts/_bottom (0.0ms)
 Completed in 6ms (View: 4 | 200 OK [http://localhost/]
+
+
+Processing HomeController#index (for 127.0.0.1 at 2011-04-27 19:19:30) [GET]
+Rendering template within layouts/home
+Rendering home/index
+Rendered layouts/_game (2.6ms)
+Rendered layouts/_bottom (0.1ms)
+Completed in 12ms (View: 11 | 200 OK [http://localhost/]
+
+
+Processing HomeController#index (for 127.0.0.1 at 2011-04-27 19:20:00) [GET]
+Rendering template within layouts/home
+Rendering home/index
+Rendered layouts/_game (1.3ms)
+Rendered layouts/_bottom (0.1ms)
+Completed in 56ms (View: 55 | 200 OK [http://localhost/]
+
+
+Processing HomeController#index (for 127.0.0.1 at 2011-04-27 19:20:10) [GET]
+Rendering template within layouts/home
+Rendering home/index
+Rendered layouts/_game (1.6ms)
+Rendered layouts/_bottom (0.1ms)
+Completed in 10ms (View: 9 | 200 OK [http://localhost/]
+
+
+Processing HomeController#index (for 127.0.0.1 at 2011-04-27 19:20:46) [GET]
+Rendering template within layouts/home
+Rendering home/index
+Rendered layouts/_game (0.2ms)
+Rendered layouts/_bottom (0.0ms)
+Completed in 6ms (View: 5 | 200 OK [http://localhost/]
+
+
+Processing HomeController#index (for 127.0.0.1 at 2011-04-27 19:39:40) [GET]
+Rendering template within layouts/home
+Rendering home/index
+Rendered layouts/_game (1.4ms)
+Rendered layouts/_bottom (0.1ms)
+Completed in 10ms (View: 8 | 200 OK [http://localhost/]
+
+
+Processing HomeController#index (for 127.0.0.1 at 2011-04-27 19:39:48) [GET]
+Rendering template within layouts/home
+Rendering home/index
+Rendered layouts/_game (1.3ms)
+Rendered layouts/_bottom (0.1ms)
+Completed in 10ms (View: 9 | 200 OK [http://localhost/]
