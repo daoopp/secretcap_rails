@@ -55,4 +55,4 @@ Rails::Initializer.run do |config|
 end
 
 MongoMapper.connection = Mongo::Connection.new('localhost', '27017', :logger => Rails.logger)
-MongoMapper.database = "secret_cap"
+MongoMapper.database = "secretcap"
