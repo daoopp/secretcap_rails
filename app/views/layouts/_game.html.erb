@@ -1,48 +1,174 @@
-<div id="game" style="display: none;">
-  <div id="game_menu">
-    <button id="game_menu_member_info" class="game_menu_btn"></button>
-    <button id="game_menu_friends" class="game_menu_btn"></button>
-    <button id="game_menu_message" class="game_menu_btn"></button>
-    <button id="game_menu_arch" class="game_menu_btn"></button>
-    <button id="game_menu_config" class="game_menu_btn"></button>
-    <button id="game_menu_quit" class="game_menu_btn"></button>
-  </div>
-  <div id="score_board"></div>
-  <div id="message_board"></div>
 
-  <div id="player_self_pos">
-    <div class="player_role_bg_big" id="player_role_bg_big">
-      <!-- role icon -->
+<style type="text/css">
+  *{margin: 0;padding: 0; font-family: Verdana;}
+  a:active, a:focus{outline:none;}
+  body {background: white;}
+</style>
+<script type="text/javascript">
+  //<![CDATA[
+  $(document).ready(function(){
+
+    $("#jquery_jplayer").jPlayer({
+      ready: function () {
+        $(this).jPlayer("setMedia", {
+          mp3: "bang.mp3"
+        });
+      },
+      swfPath: "/javascripts",
+      supplied: "mp3"
+    });
+  });
+  //]]>
+</script>
+
+<div id="jquery_jplayer"></div>
+
+<div id="game" style="display: block;">
+  <script type="text/javascript">
+    var current_map_ele = '#current_map';
+    var mapPoint = {x: 0, y: 0};
+    var bodyPoint = {x: 0, y: 0};
+    var mapOffset = {x: 0, y: 0};
+
+    $(document).ready(function(){
+      //init data
+      mapOffset.x = $(current_map_ele).offset().left;
+      mapOffset.y = $(current_map_ele).offset().top;
+      $('#coord').html(SNumber.number(0) + '<div style="color: #ddd;float:left;font-size: 30px;font-weight: bold;">, </div>' + SNumber.number(0))
+
+      //
+      //functions
+      $(document).mousemove(function(e){
+        $('#debug').html(e.pageX +', '+ e.pageY);
+        bodyPoint.x = e.pageX;
+        bodyPoint.y = e.pageY;
+      })
+
+      $("#map " + current_map_ele).mousemove(function(e){
+        mapPoint.x = e.pageX - mapOffset.x;
+        mapPoint.y = e.pageY - mapOffset.y;
+        //$('#map_point').html(mapPoint.x +', '+ mapPoint.y).followMouse({offsetX: 60, offsetY: 25});
+        $('#coord').html(SNumber.number(mapPoint.x) + '<div style="color: #ddd;float:left;font-size: 30px;font-weight: bold;">, </div>' + SNumber.number(mapPoint.y, true));
+      })
+      .click(function(e){
+        //$('#boom').followMouse();
+        $('#animate').followMouse().playAnimate({frequency: 160}, function(e){e.delayHide({timeout: 200})});
+        $("#jquery_jplayer").jPlayer('play');
+        console.log($("#jquery_jplayer"));
+      })
+
+      //options:
+      //  offsetX: Number,
+      //  offsetY: Number
+      $.fn.followMouse = function(options) {
+        var setting = {offsetX: 0, offsetY: 0};
+        var opt = $.extend(setting, options);
+
+        this.css({
+          'position': 'absolute',
+          'top': (bodyPoint.y - this.height() / 2) + opt.offsetY + 'px',
+          'left': (bodyPoint.x - this.width() / 2) + opt.offsetX + 'px',
+          'display': 'block',
+          'opacity': 1
+        });
+        return this;
+      }
+
+      //DOM:
+      //  <div id="ele" style="width: 144px;height: 102px;display: none;" frames="fight01.png, fight02.png, fight03.png, fight01.png, fight02.png"></div>
+      //options:
+      //  frequency: 200(ms)
+      //callback:
+      //  function(this){}
+      $.fn.playAnimate = function(options, callback) {
+        var setting = {frequency: 200};
+        var opt = $.extend(setting, options);
+        var e = this;
+
+        var play = function(frames) {
+          if(frames.length > 0) {
+            e.html("<img src='" + frames.shift() + "' />");
+            setTimeout(function(){play(frames)}, opt.frequency);
+          } else {
+            if(callback)
+              callback(e);
+          }
+        }
+
+        play(this.attr('frames').split(','));
+        return this;
+      }
+
+      //options:
+      //  offsetX: Number,
+      //  offsetY: Number,
+      //  x: Number,
+      //  y: Number
+      $.fn.showInMap = function(options) {
+        var setting = {offsetX: 0, offsetY: 0, x: 0, y: 0};
+        var opt = $.extend(setting, options);
+
+        this.css({
+          'position': 'absolute',
+          'top': (opt.y - this.height() / 2) + mapOffset.y + opt.offsetY + 'px',
+          'left': (opt.x - this.width() / 2) + mapOffset.x + opt.offsetX + 'px',
+          'display': 'block',
+          'opacity': 1
+        });
+        return this;
+      }
+
+      //options:
+      //  timeout: ms | 2000ms
+      $.fn.delayHide = function(options) {
+        var setting = {timeout: 2000};
+        var opt = $.extend(setting, options);
+        var e = this;
+
+        $.timer(opt.timeout, function(){
+          e.animate({'opacity': 0}, 600, "linear", function(){e.hide()});
+        })
+        return e;
+      }
+
+      //class method showInMap, insert an html direct into map
+      //ex:
+      //  $.showInMap("<div style='width: 100px;height: 50px;background: blue;'></div>", {x: 100, y: 300})
+      //you can also use with delayHide():
+      //  $.showInMap("<div style='width: 100px;height: 50px;background: blue;'></div>", {x: 100, y: 300}).delayHide()
+      $.extend({
+        showInMap: function(html, options) {
+          var e = $(html);
+          e.showInMap(options).appendTo('body');
+          return e;
+        }
+      })
+
+    })
+  </script>
+  <div id="wrapper" style="margin: 50px;">
+    <div style="height: 50px;" id="coord">
     </div>
-    <button id="emotion_btn"></button>
-    <button id="skill_btn"></button>
-    <div class="poisons_points">
-      <!-- poisons points -->
+    <div id="map" style="margin-bottom: 20px;cursor:move;">
+      <img id="current_map" src="/images/map1.png" alt="map1" />
+      <!--<img id="current_map" src="/images/map2.jpg" alt="map1" />-->
     </div>
+    <div id="debug">
+    </div>
+    <div id="map_point" style="text-align:center;color: white;position: absolute;width: 100px;height: 20px;background: red;opacity: 0.6">
+    </div>
+
+    <!-- use -->
+    <!-- follow mouse, static element -->
+    <div id="bottle" style="cursor:move;position: absolute;display: none;width: 48px;height: 50px;">
+      <img src="/images/bottle.png" alt="bottle, may be a missle, wusa~~" />
+    </div>
+    <div id="boom" style="cursor:move;position: absolute;display: none;width: 100px;">
+      <img width="100px" src="/images/boom.png" alt="bottle, may be a missle, wusa~~" />
+    </div>
+    <!-- follow mouse, animations test -->
+    <div id="animate" style="width: 144px;height: 102px;display: none;" frames="/images/fight01.png, /images/fight02.png, /images/fight03.png, /images/fight01.png, /images/fight02.png"></div>
   </div>
-  <div id="player_2_pos"></div>
-  <div id="player_3_pos"></div>
-  <div id="player_4_pos"></div>
-
-  <button id="enter_prepare">准备</button>
-  <button id="game_start" style="display: none;">开始</button>
-  <button id="show_card"></button>
-  <!--buckets-->
-  <div class="bucket" id="bucket_red" name="r"></div>
-  <div class="bucket" id="bucket_blue" name="b"></div>
-  <div class="bucket" id="bucket_purple" name="y"></div>
-  <!-- cards -->
-  <div class="bucket_cards" id="bucket_red_cards"></div>
-  <div class="bucket_cards" id="bucket_blue_cards"></div>
-  <div class="bucket_cards" id="bucket_purple_cards"></div>
-
-  <!-- countdown -->
-  <div id="player_self_pos_countdown" class="countdown"style="display: none;"></div>
-  <div id="player_2_pos_countdown" class="countdown" style="display: none;"></div>
-  <div id="player_3_pos_countdown" class="countdown" style="display: none;"></div>
-  <div id="player_4_pos_countdown" class="countdown" style="display: none;"></div>
 </div>
-
-
 
 

@@ -3,6 +3,9 @@
 
 RAILS_ROOT = "#{File.dirname(__FILE__)}/.." unless defined?(RAILS_ROOT)
 
+# 解决版本依赖bug
+require 'thread'
+
 module Rails
   class << self
     def boot!
