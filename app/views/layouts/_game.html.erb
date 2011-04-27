@@ -11,11 +11,12 @@
     $("#jquery_jplayer").jPlayer({
       ready: function () {
         $(this).jPlayer("setMedia", {
-          mp3: "bang.mp3"
+          ogg: "/audio/test.ogg"
+                  //  mp3: "/audio/bang.mp3"
         });
       },
       swfPath: "/javascripts",
-      supplied: "mp3"
+      supplied: "ogg"
     });
   });
   //]]>
@@ -54,7 +55,6 @@
         //$('#boom').followMouse();
         $('#animate').followMouse().playAnimate({frequency: 160}, function(e){e.delayHide({timeout: 200})});
         $("#jquery_jplayer").jPlayer('play');
-        console.log($("#jquery_jplayer"));
       })
 
       //options:
