@@ -1,36 +1,33 @@
-
-<style type="text/css">
-  *{margin: 0;padding: 0; font-family: Verdana;}
-  a:active, a:focus{outline:none;}
-  body {background: white;}
-</style>
-<script type="text/javascript">
-  //<![CDATA[
-  $(document).ready(function(){
-
-    $("#jquery_jplayer").jPlayer({
-      ready: function () {
-        $(this).jPlayer("setMedia", {
-          ogg: "/audio/test.ogg"
-                  //  mp3: "/audio/bang.mp3"
-        });
-      },
-      swfPath: "/javascripts",
-      supplied: "ogg"
-    });
-  });
-  //]]>
-</script>
-
-<div id="jquery_jplayer"></div>
-
 <div id="game" style="display: block;">
-  <script type="text/javascript">
-    var current_map_ele = '#current_map';
-    var mapPoint = {x: 0, y: 0};
-    var bodyPoint = {x: 0, y: 0};
-    var mapOffset = {x: 0, y: 0};
+  <div style="height: 50px;" id="coord">
+  </div>
+  <div id="hp_container" style="margin: 10px 0;">
+    <div id="hp_bar" hp="7" style="width: 230px;height: 28px;background: url(/images/hp.png) no-repeat left top;">
+    </div>
+  </div>
+  <div id="map" style="margin-bottom: 20px;cursor:move;">
+    <img id="current_map" src="/images/maps/long_cun_zheng_2.jpg" alt="map1" />
+    <!--<img id="current_map" src="/images/map2.jpg" alt="map1" />-->
+  </div>
+  <div id="debug">
+  </div>
+  <div id="map_point" style="text-align:center;color: white;position: absolute;width: 100px;height: 20px;background: red;opacity: 0.6">
+  </div>
 
+  <!-- use -->
+  <!-- follow mouse, static element -->
+  <div id="bottle" style="cursor:move;position: absolute;display: none;width: 48px;height: 50px;">
+    <img src="/images/bottle.png" alt="bottle, may be a missle, wusa~~" />
+  </div>
+  <div id="boom" style="cursor:move;position: absolute;display: none;width: 100px;">
+    <img width="100px" src="/images/boom.png" alt="bottle, may be a missle, wusa~~" />
+  </div>
+  <!-- follow mouse, animations test -->
+  <div id="animate" style="width: 144px;height: 102px;display: none;" frames="/images/fight01.png, /images/fight02.png, /images/fight03.png, /images/fight01.png, /images/fight02.png"></div>
+</div>
+
+<% content_for :javascripts do %>
+  <script type="text/javascript">
     $(document).ready(function(){
       //init data
       mapOffset.x = $(current_map_ele).offset().left;
@@ -53,122 +50,40 @@
       })
       .click(function(e){
         //$('#boom').followMouse();
-        $('#animate').followMouse().playAnimate({frequency: 160}, function(e){e.delayHide({timeout: 200})});
-        $("#jquery_jplayer").jPlayer('play');
-      })
-
-      //options:
-      //  offsetX: Number,
-      //  offsetY: Number
-      $.fn.followMouse = function(options) {
-        var setting = {offsetX: 0, offsetY: 0};
-        var opt = $.extend(setting, options);
-
-        this.css({
-          'position': 'absolute',
-          'top': (bodyPoint.y - this.height() / 2) + opt.offsetY + 'px',
-          'left': (bodyPoint.x - this.width() / 2) + opt.offsetX + 'px',
-          'display': 'block',
-          'opacity': 1
+        $('#animate').followMouse().playAnimate({
+          frequency: 160
+        }, function(e){
+          e.delayHide({
+            timeout: 200
+          })
         });
-        return this;
-      }
-
-      //DOM:
-      //  <div id="ele" style="width: 144px;height: 102px;display: none;" frames="fight01.png, fight02.png, fight03.png, fight01.png, fight02.png"></div>
-      //options:
-      //  frequency: 200(ms)
-      //callback:
-      //  function(this){}
-      $.fn.playAnimate = function(options, callback) {
-        var setting = {frequency: 200};
-        var opt = $.extend(setting, options);
-        var e = this;
-
-        var play = function(frames) {
-          if(frames.length > 0) {
-            e.html("<img src='" + frames.shift() + "' />");
-            setTimeout(function(){play(frames)}, opt.frequency);
-          } else {
-            if(callback)
-              callback(e);
-          }
-        }
-
-        play(this.attr('frames').split(','));
-        return this;
-      }
-
-      //options:
-      //  offsetX: Number,
-      //  offsetY: Number,
-      //  x: Number,
-      //  y: Number
-      $.fn.showInMap = function(options) {
-        var setting = {offsetX: 0, offsetY: 0, x: 0, y: 0};
-        var opt = $.extend(setting, options);
-
-        this.css({
-          'position': 'absolute',
-          'top': (opt.y - this.height() / 2) + mapOffset.y + opt.offsetY + 'px',
-          'left': (opt.x - this.width() / 2) + mapOffset.x + opt.offsetX + 'px',
-          'display': 'block',
-          'opacity': 1
-        });
-        return this;
-      }
-
-      //options:
-      //  timeout: ms | 2000ms
-      $.fn.delayHide = function(options) {
-        var setting = {timeout: 2000};
-        var opt = $.extend(setting, options);
-        var e = this;
-
-        $.timer(opt.timeout, function(){
-          e.animate({'opacity': 0}, 600, "linear", function(){e.hide()});
-        })
-        return e;
-      }
-
-      //class method showInMap, insert an html direct into map
-      //ex:
-      //  $.showInMap("<div style='width: 100px;height: 50px;background: blue;'></div>", {x: 100, y: 300})
-      //you can also use with delayHide():
-      //  $.showInMap("<div style='width: 100px;height: 50px;background: blue;'></div>", {x: 100, y: 300}).delayHide()
-      $.extend({
-        showInMap: function(html, options) {
-          var e = $(html);
-          e.showInMap(options).appendTo('body');
-          return e;
-        }
+        $("#bomb_audio").jPlayer('play');
       })
-
     })
   </script>
-  <div id="wrapper" style="margin: 50px;">
-    <div style="height: 50px;" id="coord">
-    </div>
-    <div id="map" style="margin-bottom: 20px;cursor:move;">
-      <img id="current_map" src="/images/map1.png" alt="map1" />
-      <!--<img id="current_map" src="/images/map2.jpg" alt="map1" />-->
-    </div>
-    <div id="debug">
-    </div>
-    <div id="map_point" style="text-align:center;color: white;position: absolute;width: 100px;height: 20px;background: red;opacity: 0.6">
-    </div>
+<% end %>
 
-    <!-- use -->
-    <!-- follow mouse, static element -->
-    <div id="bottle" style="cursor:move;position: absolute;display: none;width: 48px;height: 50px;">
-      <img src="/images/bottle.png" alt="bottle, may be a missle, wusa~~" />
-    </div>
-    <div id="boom" style="cursor:move;position: absolute;display: none;width: 100px;">
-      <img width="100px" src="/images/boom.png" alt="bottle, may be a missle, wusa~~" />
-    </div>
-    <!-- follow mouse, animations test -->
-    <div id="animate" style="width: 144px;height: 102px;display: none;" frames="/images/fight01.png, /images/fight02.png, /images/fight03.png, /images/fight01.png, /images/fight02.png"></div>
-  </div>
-</div>
+<% content_for :audios do %>
+  <div class="audio" id="bomb_audio"></div>
+  <script type="text/javascript">
+    //<![CDATA[
+    $(document).ready(function(){
+
+      $("#bomb_audio").jPlayer({
+        ready: function () {
+          $(this).jPlayer("setMedia", {
+            mp3: "/audio/bang.mp3"
+          });
+        },
+        preload: 'auto',
+        solution: 'flash',//flash | html
+        swfPath: "/javascripts",
+        supplied: "mp3"
+      });
+    })
+    //]]>
+  </script>
+<% end %>
+
 
 

@@ -283,7 +283,7 @@ var rq;
     //for debug
     if(is_debug)
       $('body').append("<div id='s_debug_info' style='z-index: 4;color: white;font-size: 12px;position: fixed;top: 0;left: 0;width: 200px;background: transparent;border: 1px solid #333;'></div>");
-    s.setup('s_container' ,'/javascripts/jsXMLSocket.swf');
+    s.setup('s_container' ,'/javascripts/jsxmlsocket.swf');
   });
 })(jQuery)
 
