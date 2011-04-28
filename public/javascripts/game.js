@@ -23,27 +23,28 @@ $.fn.gaHP = function(options) {
 
 //usage:
 //  $('#playboard').gaHL('timer_name');
-//  $('#playboard_border').gaHL('timer_name_2');
+//  $('#playboard_outer').gaHL('timer_name_2');
 var GTimer = {};
 $.fn.gaHL = function(timer) {
   var e = this;
   var pa = function() {
-    e.animate({borderColor: '#E67591', opacity: .2}, 600).animate({borderColor: '#EB1A4E', opacity: 1}, 600)
+    e.animate({borderColor: e.attr('from_color'), opacity: .2}, 600).animate({borderColor: e.attr('to_color'), opacity: 1}, 600)
   };
 
   if(GTimer[timer]) {
     clearTimeout(GTimer[timer]);
-    e.css({borderColor: '#E67591'});
+    e.css({borderColor: e.attr('from_color')});
   }
   GTimer[timer] = setInterval(function(){pa()}, 2000);
 }
 
 //usage:
 //  $('#map').gPlaceBox();
-var gbox_html = "<div class='box' style='float: left;z-index: 3;width: 20px;height: 20px;'></div>";
+var gbox_rect = 30; //This must be divide by 720 and 360
+var gbox_html = "<div class='box' style='float: left;z-index: 3;width: " + gbox_rect + "px;height: " + gbox_rect + "px;'></div>";
 $.fn.gPlaceBox = function() {
   var e = $('#box');
-  var n = (720 * 360) / (20 * 20);
+  var n = (720 * 360) / (gbox_rect * gbox_rect);
   for(var i = 0; i < n; i ++){
     e.append(gbox_html);
   }
