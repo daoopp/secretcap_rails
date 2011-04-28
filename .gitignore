@@ -1,5 +1,5 @@
 nbproject/*
-log/*
+log/*.log
 vendor/*
 db/*
 
