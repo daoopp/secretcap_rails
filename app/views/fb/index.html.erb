@@ -1,0 +1,23 @@
+<h1>secretcap</h1>
+<p><fb:login-button perms="email" autologoutlink="true">Login with Facebook</fb:login-button></p>
+<p><fb:like href="example.com" show_faces="true" width="450" send="true"></p>
+<!--<p><fb:send href="example.com"></fb:send></p>-->
+
+<% content_for :javascripts do %>
+  <div id="fb-root"></div>
+  <script type="text/javascript">
+    window.fbAsyncInit = function() {
+      FB.init({appId: '146449782089895', status: true, cookie: true,
+        xfbml: true});
+    };
+    (function() {
+      var e = document.createElement('script');
+      e.type = 'text/javascript';
+      e.src = document.location.protocol + '//connect.facebook.net/en_US/all.js';
+      //for debug
+      //e.src = 'http://static.ak.fbcdn.net/connect/en_US/core.debug.js';
+      e.async = true;
+      document.getElementById('fb-root').appendChild(e);
+    }());
+  </script>
+<% end %>

@@ -40,7 +40,7 @@ $.fn.gaHL = function(timer) {
 
 //usage:
 //  $('#map').gPlaceBox();
-var gbox_rect = 30; //This must be divide by 720 and 360
+var gbox_rect = 15; //This must be divide by 720 and 360
 var gbox_html = "<div class='box' style='float: left;z-index: 3;width: " + gbox_rect + "px;height: " + gbox_rect + "px;'></div>";
 $.fn.gPlaceBox = function() {
   var e = $('#box');

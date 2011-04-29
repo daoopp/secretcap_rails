@@ -5,10 +5,11 @@
     <div id="hp_bar" hp="7" style="width: 230px;height: 28px;background: url(/images/hp.png) no-repeat left top;">
     </div>
   </div>
-  <div style="position: relative;height: 380px;">
-    <div id="map" style="cursor:move;margin: 5px;position: absolute;top: 3px;left: 2px;">
+  <div style="position: relative;height: 380px;overflow: hidden;">
+    <div id="map" style="margin: 5px;position: absolute;top: 3px;left: 2px;">
       <!--<img id="current_map" src="/images/maps/long_cun_zheng_2.jpg" alt="map1" style="position: absolute;" />-->
-      <img id="current_map" src="/images/maps/map1.png" alt="map1" width="720px" height="360px" style="position: absolute;" />
+      <!--<img id="current_map" src="/images/maps/map1.png" alt="map1" width="720px" height="360px" style="position: absolute;" />-->
+      <img id="current_map" src="/images/maps/ruined_city.jpg" alt="map1" width="720px" height="360px" style="position: absolute;" />
       <div id="box" style="position: absolute;width:720px;height: 360px;"></div>
     </div>
     <div id="playboard" from_color="#3B3A3A" to_color="#5C5A5A" style="height:366px;width: 725px;border: 2px solid #3B3A3A;position: absolute;top: 0px;left: 0px;z-index: -1;"></div>
@@ -55,14 +56,14 @@
         $('#coord').html(SNumber.number(mapPoint.x) + '<div style="color: #ddd;float:left;font-size: 30px;font-weight: bold;">, </div>' + SNumber.number(mapPoint.y, true));
       })
       .click(function(e){
-        //$('#boom').followMouse();
-        $('#animate').followMouse().playAnimate({
-          frequency: 160
-        }, function(e){
-          e.delayHide({
-            timeout: 200
-          })
-        });
+        $('#boom').followMouse().delayHide({timeout: 600});
+        //$('#animate').followMouse().playAnimate({
+        //  frequency: 160
+        //}, function(e){
+        //  e.delayHide({
+        //    timeout: 200
+        //  })
+        //});
         $("#bomb_audio").jPlayer('play');
       })
 
@@ -70,7 +71,7 @@
       $('#map').gPlaceBox();
       //box event
       $('.box').live('mouseover', function(){
-        $(this).css({backgroundColor: '#DB1445', opacity: .6})
+        $(this).css({backgroundColor: '#C20433', opacity: .4})
       })
       .live('mouseout', function(){
         $(this).css({backgroundColor: 'transparent'});
