@@ -1,7 +1,12 @@
 <div id="game">
-  <div style="height: 50px;" id="coord">
+  <div style="height: 50px;width:400px;float:left;" id="coord">
   </div>
-  <div id="hp_container" style="margin: 10px 0;">
+  <div id="menu" style="float:right;height: 50px;">
+    <a id="login_btn" style="color:white;" href="javascript: void(0);">登录</a>
+    <a style="color:white;" href="javascript: void(0);">注册</a>
+    <a style="color:white;" href="/logout">Logout</a>
+  </div>
+  <div id="hp_container" style="margin: 10px 0;clear:both;">
     <div id="hp_bar" hp="7" style="width: 230px;height: 28px;background: url(/images/hp.png) no-repeat left top;">
     </div>
   </div>
@@ -11,10 +16,20 @@
       <!--<img id="current_map" src="/images/maps/map1.png" alt="map1" width="720px" height="360px" style="position: absolute;" />-->
       <img id="current_map" src="/images/maps/ruined_city.jpg" alt="map1" width="720px" height="360px" style="position: absolute;" />
       <div id="box" style="position: absolute;width:720px;height: 360px;"></div>
-    </div>
+    </div>   
     <div id="playboard" from_color="#3B3A3A" to_color="#5C5A5A" style="height:366px;width: 725px;border: 2px solid #3B3A3A;position: absolute;top: 0px;left: 0px;z-index: -1;"></div>
     <div id="playboard_outer" from_color="#3B3A3A" to_color="#5C5A5A" style="position: absolute;height:366px;width: 725px;border: 2px solid #3B3A3A;top: 6px;left: 5px;z-index: -1;"></div>
   </div>
+
+  <div id="loginbox" style="opacity: .8; position: absolute;display:none;width:200px;height:100px;border:1px purple solid;top:200px;left:400px;">
+    <form action="/sessions" id="login_form" method="post" onsubmit="return false;">
+      <label style="color:white;">用户名</label>
+      <input class="login_name" style="margin:5px;" type="text" name="login" /> <br/>
+      <label style="color:white;">密码</label>
+      <input class="login_password" style="margin:5px;" type="password" name="password" />
+    </form>
+  </div>
+
   <div id="debug">
   </div>
   <div id="map_point" style="display: none;text-align:center;color: white;position: absolute;width: 100px;height: 20px;background: red;opacity: 0.6">
@@ -79,6 +94,7 @@
       //blink map border
       $('#playboard').gaHL('playboard_timer');
       $.timer(540, function(){ $('#playboard_outer').gaHL('playboard_timer_2') })
+     
     })
   </script>
 <% end %>
