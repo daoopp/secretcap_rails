@@ -47,10 +47,10 @@ function initPlayer(data) {
   $('#login_btn').bind('click', function(){
     if(current_spring_box != '#loginbox') {
       clearSpringBox();
-      var ax = (GD.playground_width - $('#loginbox').width()) / 2;
+      var ax = ($('body').width() - $('#loginbox').width()) / 2;
       $('#loginbox').aSpringShow({
         x: ax,
-        ty: 90
+        ty: 190
       });
       current_spring_box = '#loginbox';
     }
