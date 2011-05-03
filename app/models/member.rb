@@ -16,8 +16,8 @@ class Member
   key :last_sign_in_ip, String
 
   #game data
-  key :sex, Integer, :required => true           #1: maie, 2: female
-  key :nature, Integer, :required => true        #1, 2, 3
+#  key :sex, Integer, :required => true           #1: maie, 2: female
+#  key :nature, Integer, :required => true        #1, 2, 3
   key :xp, Integer, :default => 0
   key :level, Integer, :default => 1
   key :history_points, Array  #[{y: 1, b: 2, r: 10, g: 2}, ...]

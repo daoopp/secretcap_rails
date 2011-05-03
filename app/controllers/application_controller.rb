@@ -30,11 +30,11 @@ class ApplicationController < ActionController::Base
     {
       :uuid => member.uuid,
       :name => member.login,
-      :sex => member.sex,
+#      :sex => member.sex,
       :level => member.level,
       :xp => member.xp,
       :arch => member.arch,
-      :nature => member.nature,
+#      :nature => member.nature,
       :friends => member.friends,
       :role => member.role
     }
