@@ -28,21 +28,21 @@ var GTimer = {};
 $.fn.gaHL = function(timer) {
   var e = this;
   var pa = function() {
-    e.animate({borderColor: e.attr('from_color'), opacity: .2}, 600).animate({borderColor: e.attr('to_color'), opacity: 1}, 600)
+    e.animate({borderColor: e.attr('from_color'), opacity: .2}, 1500).animate({borderColor: e.attr('to_color'), opacity: 1}, 1500)
   };
 
   if(GTimer[timer]) {
     clearTimeout(GTimer[timer]);
     e.css({borderColor: e.attr('from_color')});
   }
-  GTimer[timer] = setInterval(function(){pa()}, 2000);
+  GTimer[timer] = setInterval(function(){pa()}, 3000);
 }
 
 //usage:
 //  $('#map').gPlaceBox();
-var gbox_rect = 15; //This must be divide by 720 and 360
+var gbox_rect = 24; //This must be divide by 720 and 360
 var gbox_html = "<div class='box' style='float: left;z-index: 3;width: " + gbox_rect + "px;height: " + gbox_rect + "px;'></div>";
-$.fn.gPlaceBox = function() {
+$.fn.gPlaceTiles = function() {
   var e = $('#box');
   var n = (720 * 360) / (gbox_rect * gbox_rect);
   for(var i = 0; i < n; i ++){
