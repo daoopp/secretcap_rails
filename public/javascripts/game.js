@@ -18,7 +18,7 @@ $.fn.gaHP = function(options) {
     h = hp_full_point;
   this.animate({
     'width': "+" + ((hp_bar_width / hp_full_point) * h)
-    }).attr('hp', h);
+  }).attr('hp', h);
 }
 
 //usage:
@@ -28,14 +28,24 @@ var GTimer = {};
 $.fn.gaHL = function(timer) {
   var e = this;
   var pa = function() {
-    e.animate({borderColor: e.attr('from_color'), opacity: .2}, 600).animate({borderColor: e.attr('to_color'), opacity: 1}, 600)
+    e.animate({
+      borderColor: e.attr('from_color'),
+      opacity: .2
+    }, 600).animate({
+      borderColor: e.attr('to_color'),
+      opacity: 1
+    }, 600)
   };
 
   if(GTimer[timer]) {
     clearTimeout(GTimer[timer]);
-    e.css({borderColor: e.attr('from_color')});
+    e.css({
+      borderColor: e.attr('from_color')
+      });
   }
-  GTimer[timer] = setInterval(function(){pa()}, 2000);
+  GTimer[timer] = setInterval(function(){
+    pa()
+    }, 2000);
 }
 
 //usage:
