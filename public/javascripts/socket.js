@@ -9,7 +9,7 @@ var rq;
   // Port we are connecting on
   var port = 8081;
 
-  var is_debug = false;
+  var is_debug = true;
   var debug_seq = 1;
   var max_debug_msg = 30;
 
