@@ -5,7 +5,7 @@ var rq;
 
 (function($){
   // Host we are connecting to
-  var host = 'www.cceebb.com';
+  var host = 'localhost';
   // Port we are connecting on
   var port = 8081;
 
