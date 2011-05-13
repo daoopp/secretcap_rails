@@ -1,5 +1,7 @@
 var current_spring_box;
 var current_second_spring_box;
+var enter = false;
+
 function clearSpringBox() {
     if(current_spring_box) {
         $.aMoveOpy(current_spring_box, {
@@ -95,8 +97,13 @@ function initPlayer(data) {
             success: function(data) {
                 initSetLoginData(true, data['data']);
                 $('#s_container_handler').triggerHandler('connect');
-            //set socket session;
-            alert('登陆成功');
+                //set socket session;
+                enter = true;
+                $('#login_box').hide();
+                $("#user_box").show();
+                $('#user_box span').html('欢迎你' + data['data']['name'])
+                $('#loginbox').fadeOut('slow');
+                $('#play_area').css('opacity', 1.0);
             },
             error: function(data) {
                 $('.signin_big').poshytip({

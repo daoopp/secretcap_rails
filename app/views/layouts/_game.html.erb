@@ -2,15 +2,20 @@
   <div style="height: 50px;width:400px;float:left;" id="coord">
   </div>
   <div id="menu" style="float:right;height: 50px;">
-    <a id="login_btn" style="color:white;" href="javascript: void(0);">登录</a>
-    <a id="signup_btn" style="color:white;" href="javascript: void(0);">注册</a>
-    <a style="color:white;" href="/logout">Logout</a>
+    <div id="user_box" style="display:none;">
+      <span style="color:white">欢迎你：</span> &nbsp;&nbsp;
+      <a style="color:white;" href="/logout">登出</a>
+    </div>
+    <div id="login_box">
+      <a id="login_btn" style="color:white;" href="javascript: void(0);">登录</a>
+      <a id="signup_btn" style="color:white;" href="javascript: void(0);">注册</a>
+    </div>
   </div>
   <div id="hp_container" style="margin: 10px 0;clear:both;">
     <div id="hp_bar" hp="7" style="width: 230px;height: 28px;background: url(/images/hp.png) no-repeat left top;">
     </div>
   </div>
-  <div style="position: relative;height: 380px;overflow: hidden;">
+  <div id="play_area" style="position: relative;height: 380px;overflow: hidden;opacity:0.5;">
     <div id="map" style="margin: 5px;position: absolute;top: 3px;left: 2px;">
       <!--<img id="current_map" src="/images/maps/long_cun_zheng_2.jpg" alt="map1" style="position: absolute;" />-->
       <img id="current_map" src="/images/maps/map1.png" alt="map1" width="720px" height="360px" style="position: absolute;" />
@@ -70,6 +75,7 @@
       mapOffset.y = $(current_map_ele).offset().top;
       $('#coord').html(SNumber.number(0) + '<div style="color: #ddd;float:left;font-size: 30px;font-weight: bold;">, </div>' + SNumber.number(0))
 
+      $('#playboard').css('opacity', 0.5);
       //
       //functions
       $(document).mousemove(function(e){
@@ -86,15 +92,18 @@
         $('#coord').html(SNumber.number(mapPoint.x) + '<div style="color: #ddd;float:left;font-size: 30px;font-weight: bold;">, </div>' + SNumber.number(mapPoint.y, true));
       })
       .click(function(e){
-        $('#boom').followMouse().delayHide({timeout: 600});
-        //$('#animate').followMouse().playAnimate({
-        //  frequency: 160
-        //}, function(e){
-        //  e.delayHide({
-        //    timeout: 200
-        //  })
-        //});
-        $("#bomb_audio").jPlayer('play');
+        if (enter){
+          $('#boom').followMouse().delayHide({timeout: 600});
+          //$('#animate').followMouse().playAnimate({
+          //  frequency: 160
+          //}, function(e){
+          //  e.delayHide({
+          //    timeout: 200
+          //  })
+          //});
+          $("#bomb_audio").jPlayer('play');
+        }
+       
       })
 
       //place box
